@@ -74,9 +74,12 @@ li a:hover {
 }
 
 .imageLogoBody {
+  /* filter: drop-shadow(0px 0px 6px gray); */
   width: 150px;
 }
 .imageLogo {
+  filter: drop-shadow(0px 0px 6px rgb(255, 208, 0));
+
   position: absolute;
   background-image: url("image/center-logo.png");
   /* background-color: #cccccc; */
@@ -85,6 +88,11 @@ li a:hover {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.imageLogo:hover {
+  filter: drop-shadow(0px 0px 6px gray);
+
+  background-color: transparent;
 }
 .quickMenu {
   position: absolute;
@@ -102,7 +110,8 @@ li a:hover {
   background-color: #f6bf28;
 }
 
-.mainTopMenu,.quickMenu{
+.mainTopMenu,
+.quickMenu {
   z-index: 10000;
 }
 
@@ -118,9 +127,8 @@ li a:hover {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.berger{
+.berger {
   width: 50vw;
-  margin: 20vw 2vw ;
+  margin: 20vw 2vw;
   float: left;
 }
-
