@@ -1,7 +1,10 @@
+import React  from 'react';
+
+
 const QuickMenu = () => {
-    return ( <div>
+    return ( <React.Fragment>
         <ul className="quickMenu">
-            <li><a to=""> پیتزا</a></li>
+            <li><a to=""> پیتزا</a><i class="fas fa-pizza-slice"></i></li>
             <li><a to="">همبرگر</a></li>
             <li><a to="">ساندویچ</a></li>
             <li><a to="">سالاد و سایر</a></li>
@@ -9,7 +12,7 @@ const QuickMenu = () => {
             <li><a to="">نوشیدنی</a></li>
             <li><a to="">دسر</a></li>
         </ul>
-    </div> );
+    </React.Fragment> );
 }
  
 export default QuickMenu;

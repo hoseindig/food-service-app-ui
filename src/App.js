@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Navbar />
       <QuickMenu />
-      <MainBox/>
+      <MainBox className="header"/>
     </div>
   );
 }

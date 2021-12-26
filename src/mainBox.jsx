@@ -1,5 +1,14 @@
+import berger from "./image/berger.png";
+import React, { Component } from "react";
+
 const MainBox = () => {
-    return ( <div className="mainBox"></div> );
-}
- 
+  return (
+    <React.Fragment>
+      <div className="mainBox">
+        <img className="berger" src={berger} alt="" />
+      </div>
+    </React.Fragment>
+  );
+};
+
 export default MainBox;

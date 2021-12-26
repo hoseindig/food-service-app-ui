@@ -1,7 +1,8 @@
 import logo from './image/center-logo.png'
+import React  from 'react';
 
 const Navbar = () => {
-    return ( <div>
+    return ( <React.Fragment>
         <ul className='mainTopMenu'>
             <li> <a to="">خانه</a> </li>
             <li><a to="">درباره</a></li>
@@ -15,7 +16,7 @@ const Navbar = () => {
             <li><a to="">شعبه ها</a></li>
             <li><a to="">اطلاعات تماس</a></li>
         </ul>
-    </div> );
+    </React.Fragment> );
 }
  
 export default Navbar;
