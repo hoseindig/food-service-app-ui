@@ -50,9 +50,8 @@ const SpecialOffer = () => {
               <div className="card-body">
                 <h5 className="card-title">{item.title}</h5>
                 <p className="card-text">{item.info}</p>
-                
               </div>
-              <div class="card-footer">
+              <div className="card-footer">
                 {/* <small class="text-muted">Last updated 3 mins ago</small> */}
                 <a href="#" className="btn btn-primary">
                   قیمت {item.price} تومان
@@ -62,6 +61,9 @@ const SpecialOffer = () => {
           );
         })}
       </div>
+      <a href="#" className=" btn btn-secondary mt-5">
+        مشاهده بیشتر
+      </a>
     </div>
   );
 };

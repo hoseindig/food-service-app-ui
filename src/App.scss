@@ -60,6 +60,12 @@ body {
 }
 * {
   font-family: "IRAN-Sans-Regular";
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 ul {
@@ -209,4 +215,54 @@ li a:hover {
 
 .SpecialOffer {
   padding: 5vw;
+  font-weight: bold;
+}
+
+.card {
+  transition: 0.3s;
+  transform: scale(0.95);
+}
+.card:hover {
+  transform: scale(1);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(161, 156, 156);
+}
+
+.TwoOffer {
+  background-color: #3c2118;
+  color: white;
+  padding: 10vw 5vw;
+  h1 {
+    span {
+      color: red;
+    }
+  }
+  .offer-box {
+    padding: 5vw 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .shap {
+      width: 280px;
+      height: 280px;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    span {
+      font-size: 2em;
+      color: yellow;
+    }
+    div {
+      // width: 40vw;
+
+      img {
+        width: 30vw;
+
+        // height: 40vw;
+        background-color: #361e14;
+      }
+    }
+  }
 }

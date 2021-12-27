@@ -9,6 +9,7 @@ import MainBox from './mainBox';
 import LoginBoxInMainPage from './loginBoxInMainPage';
 import OrderByTell from './orderByTell';
 import SpecialOffer from './component/specialOffer';
+import TwoOffer from './twoOffer';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
       <OrderByTell/>
       <MainBox className="header"/>
       <SpecialOffer/>
+      <TwoOffer/>
     </div>
   );
 }
