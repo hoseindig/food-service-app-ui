@@ -5,28 +5,28 @@ const SpecialOffer = () => {
       title: "مانستر   ",
       info: "دوتا همبرگر دستی حرفه ای با پیاز کاراملی و پنیر موزارلا و یک سس خاص",
       price: "99,900",
-      image: "image/bergers/monster.jpg",
+      image: "images/bergers/monster.jpg",
     },
     {
       id: 2,
       title: "مانستر پپر  ",
       info: "دوتا همبرگر دستی حرفه ای با پپرونی و سیب زمینی سرخ شده و پنیر موزارلا و یک سس خاص",
       price: "119,900",
-      image: "./image/bergers/monster-peper.jpg",
+      image: "./images/bergers/monster-peper.jpg",
     },
     {
       id: 3,
       title: "مانستر چیزکراف      ",
       info: "دوتا همبرگر دستی حرفه ای با یک کراکف سرخ شده و پنیر موزارلا و یک سس خاص",
       price: "139,900",
-      image: "./image/bergers/monster-cheese keraf.jpg",
+      image: "./images/bergers/monster-cheese keraf.jpg",
     },
     {
       id: 4,
       title: "مانستر کینگ  ",
       info: "سه تا همبرگر دستی حرفه ای با کراکف و پپرونی و پنیر موزارلا و یک سس خاص      ",
       price: "169,900",
-      image: "./image/bergers/monster-king.jpg",
+      image: "./images/bergers/monster-king.jpg",
     },
   ];
   return (

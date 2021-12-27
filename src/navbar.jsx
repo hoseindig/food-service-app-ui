@@ -1,4 +1,4 @@
-import logo from './image/center-logo.png'
+// import logo from 'image/center-logo.png'
 import React  from 'react';
 
 const Navbar = () => {
@@ -9,7 +9,7 @@ const Navbar = () => {
             <li><a to="">وبلاگ</a></li>
             <li><a to="">منوی ما</a></li>
             {/* <li><a to="" ><img width="100" src={logo} className='imageLogo'/></a></li> */}
-            <li className='imageLogoBody'><a to="" className='imageLogo'></a></li>
+            <li className='imageLogoBody' ><a to="" className='imageLogo' style={{backgroundImage: "url(./images/center-logo.png)"}}></a></li>
 
             <li><a to="">سفارش آنلاین</a></li>
             <li><a to="">پذیرای</a></li>
