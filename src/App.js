@@ -3,13 +3,13 @@ import './App.scss';
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
-import Navbar from "./navbar";
-import QuickMenu from './quickMenu'; 
-import MainBox from './mainBox';
-import LoginBoxInMainPage from './loginBoxInMainPage';
-import OrderByTell from './orderByTell';
+import Navbar from "./component/navbar";
+import QuickMenu from './component/quickMenu'; 
+import MainBox from './component/mainBox';
+import LoginBoxInMainPage from './component/loginBoxInMainPage';
+import OrderByTell from './component/orderByTell';
 import SpecialOffer from './component/specialOffer';
-import TwoOffer from './twoOffer';
+import TwoOffer from './component/twoOffer';
 function App() {
   return (
     <div className="App">
