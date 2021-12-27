@@ -79,15 +79,12 @@ li a {
   text-align: center;
   padding: 16px;
   text-decoration: none;
+  transition: 0.5s;
 }
 
 li a:hover {
   cursor: pointer;
   background-color: #111111;
-}
-
-.mainTopMenu {
-  height: 50px;
 }
 
 .imageLogoBody {
@@ -114,20 +111,27 @@ li a:hover {
 
 .mainBox {
   z-index: 1;
-  /* position: absolute; */
   top: 0;
   background-image: url("image/foad-header.png");
-  /* background-color: #cccccc; */
   height: 100vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-.berger {
-  width: 50vw;
-  margin: 20vw 2vw;
-  float: left;
+  .center-box {
+    padding: 30vw 0;
+    .white-text {
+      color: white;
+    }
+    .rounded-custom {
+      border-radius: 30px;
+    }
+    .berger {
+      width: 50vw;
+      margin: 0 2vw;
+      float: left;
+    }
+  }
 }
 
 .LoginBox {
@@ -144,6 +148,11 @@ li a:hover {
   div {
     filter: drop-shadow(0 0 2px gray);
     padding: 12px 10px;
+    transition: 0.2s;
+  }
+  :hover {
+    cursor: pointer;
+    text-shadow: 0 0 2px rgb(0, 0, 0);
   }
 }
 .OrderByTell {
@@ -162,6 +171,11 @@ li a:hover {
   :hover {
     cursor: pointer;
   }
+  span:hover,
+  p:hover {
+    color: red;
+    text-shadow: 0 0 4px rgb(199, 194, 194);
+  }
 }
 
 .quickMenu {
@@ -174,13 +188,19 @@ li a:hover {
   box-shadow: 0 0 20px 0px #c38610;
   li a {
     color: #111111 !important;
+    font-size: 1.5em;
+    transition: 0.2s;
   }
   li a:hover {
     cursor: pointer;
     background-color: #f6bf28;
+    text-shadow: 0 0 5px rgb(0, 0, 0);
   }
 }
 
+.mainTopMenu {
+  height: 50px;
+}
 .mainTopMenu,
 .quickMenu {
   z-index: 10000;
