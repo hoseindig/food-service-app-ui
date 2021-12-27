@@ -7,12 +7,14 @@ import Navbar from "./navbar";
 import QuickMenu from './quickMenu'; 
 import MainBox from './mainBox';
 import LoginBoxInMainPage from './loginBoxInMainPage';
+import OrderByTell from './orderByTell';
 function App() {
   return (
     <div className="App">
       <Navbar />
       <QuickMenu />
       <LoginBoxInMainPage/>
+      <OrderByTell/>
       <MainBox className="header"/>
     </div>
   );

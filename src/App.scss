@@ -52,10 +52,6 @@ ul {
   background-color: #333333;
 }
 
-li {
-  /* float: left; */
-}
-
 li a {
   display: block;
   color: white !important;
@@ -94,26 +90,6 @@ li a:hover {
 
   background-color: transparent;
 }
-.quickMenu {
-  position: absolute;
-  margin: 130px 5vw;
-  width: 90vw;
-  background-color: #fccc4c;
-  box-shadow: 0 0 20px 0px #c38610;
-}
-.quickMenu li a {
-  color: #111111 !important;
-}
-
-.quickMenu li a:hover {
-  cursor: pointer;
-  background-color: #f6bf28;
-}
-
-.mainTopMenu,
-.quickMenu {
-  z-index: 10000;
-}
 
 .mainBox {
   z-index: 1;
@@ -138,11 +114,59 @@ li a:hover {
   position: absolute;
   background-color: white;
   border-radius: 15px;
-  box-shadow:0 0 2px gray ;
+  box-shadow: 0 0 2px gray;
   white-space: nowrap;
+  i ,div i{
+    filter: drop-shadow(0 0 2px gray);
+    padding: 12px 9px;
+  }
+}
+.OrderByTell {
+  margin: 50px 5vw 0 5vw;
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 2px gray;
+  white-space: nowrap;
+  padding: 3px 10px;
+  height: 55px;
+  text-shadow:0 0 4px rgb(199, 194, 194);
+  :hover{
+    cursor: pointer;
+  }
 }
 
-.LoginBox i {
-  filter: drop-shadow(0 0 2px gray);
-  padding:12px 9px;
+.quickMenu {
+  position: absolute;
+  margin: 150px 5vw;
+  width: 90vw;
+  background-color: #fccc4c;
+  box-shadow: 0 0 20px 0px #c38610;
+  li a {
+    color: #111111 !important;
+  }
+  li a:hover {
+    cursor: pointer;
+    background-color: #f6bf28;
+  }
 }
+
+.mainTopMenu,
+.quickMenu {
+  z-index: 10000;
+}
+
+.badge-top{
+
+}
+
+.includer{
+  position: relative;
+ }
+ 
+ .badge.badge-success{
+  background-color: yellow;
+  position: absolute; 
+  top: -5px;
+  right: -5px;
+ }
