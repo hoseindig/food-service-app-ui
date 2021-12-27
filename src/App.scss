@@ -37,8 +37,29 @@
   }
 }
 
+@font-face {
+  font-family: "IRAN-Sans-Regular";
+  src: url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.eot"); /* IE9*/
+  src: url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */
+      url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.woff2")
+      format("woff2"),
+    /* chrome、firefox */
+      url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.woff")
+      format("woff"),
+    /* chrome、firefox */
+      url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.ttf")
+      format("truetype"),
+    /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url("font/IRANSansRegular/@font-face/0b0a8c345731751b990403a2cf40fbec.svg#IRAN Sans Regular")
+      format("svg"); /* iOS 4.1- */
+}
 body {
   direction: rtl;
+}
+* {
+  font-family: "IRAN-Sans-Regular";
 }
 
 ul {
@@ -110,19 +131,26 @@ li a:hover {
 }
 
 .LoginBox {
-  margin: 50px 83vw 0 5vw;
+  // margin: 50px 82vw 0 5vw;
+  left: 5vw;
+  top: 130px;
   position: absolute;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 0 2px gray;
   white-space: nowrap;
-  i ,div i{
+  i,
+  div i,
+  div {
     filter: drop-shadow(0 0 2px gray);
-    padding: 12px 9px;
+    padding: 12px 10px;
   }
 }
 .OrderByTell {
-  margin: 50px 5vw 0 5vw;
+  // margin: 50px 5vw 0 5vw;
+  right: 5vw;
+  top: 130px;
+  position: absolute;
   position: absolute;
   background-color: white;
   border-radius: 15px;
@@ -130,15 +158,17 @@ li a:hover {
   white-space: nowrap;
   padding: 3px 10px;
   height: 55px;
-  text-shadow:0 0 4px rgb(199, 194, 194);
-  :hover{
+  text-shadow: 0 0 4px rgb(199, 194, 194);
+  :hover {
     cursor: pointer;
   }
 }
 
 .quickMenu {
   position: absolute;
-  margin: 150px 5vw;
+  // margin: 150px 5vw;
+  left: 5vw;
+  top: 220px;
   width: 90vw;
   background-color: #fccc4c;
   box-shadow: 0 0 20px 0px #c38610;
@@ -155,18 +185,3 @@ li a:hover {
 .quickMenu {
   z-index: 10000;
 }
-
-.badge-top{
-
-}
-
-.includer{
-  position: relative;
- }
- 
- .badge.badge-success{
-  background-color: yellow;
-  position: absolute; 
-  top: -5px;
-  right: -5px;
- }
