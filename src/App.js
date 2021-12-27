@@ -8,6 +8,7 @@ import QuickMenu from './quickMenu';
 import MainBox from './mainBox';
 import LoginBoxInMainPage from './loginBoxInMainPage';
 import OrderByTell from './orderByTell';
+import SpecialOffer from './component/specialOffer';
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
       <LoginBoxInMainPage/>
       <OrderByTell/>
       <MainBox className="header"/>
+      <SpecialOffer/>
     </div>
   );
 }
