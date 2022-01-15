@@ -1,4 +1,6 @@
-const SpecialOffer = () => {
+import OfferItem from "./offerItem";
+import OfferText from "./offertext";
+const SpecialOffer = ({ addItemToShopList }) => {
   const bergers = [
     {
       id: 1,
@@ -31,33 +33,15 @@ const SpecialOffer = () => {
   ];
   return (
     <div className="SpecialOffer">
-      <h3>محصولات ما</h3>
-      <h1 className="text-danger">برگرهای ویژه</h1>
-      <p>
-        برای اولین بار در سال ۱۳۸۷ در شهر تهران ، منطقه پاسداران افتتاح گردید .
-        هدف این مجموعه از ابتدا ارائه بهترین مواد غذایی با رعایت کلیه نکات
-        بهداشتی همچنین مناسبترین قیمت برای مشتریان وفادار خود بوده ، هم اکنون پس
-        از سالها حضور موفق این مجموعه در عرصه فروشگاههای مواد غذایی هیچگونه
-        تغییری در کیفیت غذا ایجاد نشده بلکه با استفاده از بروزترین دستگاههای
-        مدرن رستورانی بمراتب نسبت به قبل بهبود یافته .{" "}
-      </p>
+      <OfferText />
       <div className="card-group">
         {bergers.map((item) => {
           return (
-            <div className="card" key={item.id}>
-              <img src={item.image} alt="" />
-
-              <div className="card-body">
-                <h5 className="card-title">{item.title}</h5>
-                <p className="card-text">{item.info}</p>
-              </div>
-              <div className="card-footer">
-                {/* <small class="text-muted">Last updated 3 mins ago</small> */}
-                <a href="#" className="btn btn-primary">
-                  قیمت {item.price} تومان
-                </a>
-              </div>
-            </div>
+            <OfferItem
+              item={item}
+              key={item.id}
+              addItemToShopList={addItemToShopList}
+            />
           );
         })}
       </div>

@@ -1,4 +1,4 @@
-const LoginBoxInMainPage = () => {
+const LoginBoxInMainPage = ({ shopList }) => {
   return (
     <div className="LoginBox">
       <i className="fa fa-user-o" aria-hidden="true"></i>
@@ -12,7 +12,8 @@ const LoginBoxInMainPage = () => {
 
       <div className=" fa fa-shopping-basket position-relative">
         <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
-          0<span className="visually-hidden">unread messages</span>
+          {shopList.length}
+          <span className="visually-hidden">unread messages</span>
         </span>
       </div>
 
