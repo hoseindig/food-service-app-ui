@@ -8,6 +8,7 @@ const SpecialOffer = ({ addItemToShopList }) => {
       info: "دوتا همبرگر دستی حرفه ای با پیاز کاراملی و پنیر موزارلا و یک سس خاص",
       price: "99,900",
       image: "images/bergers/monster.jpg",
+      count: 1,
     },
     {
       id: 2,
@@ -15,6 +16,7 @@ const SpecialOffer = ({ addItemToShopList }) => {
       info: "دوتا همبرگر دستی حرفه ای با پپرونی و سیب زمینی سرخ شده و پنیر موزارلا و یک سس خاص",
       price: "119,900",
       image: "./images/bergers/monster-peper.jpg",
+      count: 1,
     },
     {
       id: 3,
@@ -22,6 +24,7 @@ const SpecialOffer = ({ addItemToShopList }) => {
       info: "دوتا همبرگر دستی حرفه ای با یک کراکف سرخ شده و پنیر موزارلا و یک سس خاص",
       price: "139,900",
       image: "./images/bergers/monster-cheese keraf.jpg",
+      count: 1,
     },
     {
       id: 4,
@@ -29,6 +32,7 @@ const SpecialOffer = ({ addItemToShopList }) => {
       info: "سه تا همبرگر دستی حرفه ای با کراکف و پپرونی و پنیر موزارلا و یک سس خاص      ",
       price: "169,900",
       image: "./images/bergers/monster-king.jpg",
+      count: 1,
     },
   ];
   return (
