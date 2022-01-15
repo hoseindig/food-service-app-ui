@@ -11,7 +11,7 @@ class Products extends React.Component {
       // </div>
       <div className="Products">
         <div className="card-group">
-          <div class="container">
+          <div className="container">
             <div className="row">
               {products.map((item) => {
                 return (
