@@ -47,6 +47,14 @@ const ShopListItem = ({
             {tootalBill.toLocaleString()} تومان
           </span>
         </li>
+        <li style={{ color: "white", backgroundColor: "green" }}>
+          <button
+            className="btn btn-succsess"
+            style={{ color: "white", backgroundColor: "green" }}
+          >
+            تایید نهایی
+          </button>
+        </li>
       </ul>
     </div>
   );
