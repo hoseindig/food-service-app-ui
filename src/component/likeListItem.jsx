@@ -9,6 +9,8 @@ const LikeListItem = ({ likeList }) => {
               className="list-group-item d-flex justify-content-between align-items-center"
               key={item.id}
             >
+              <img src={item.image} alt="" width="30" />
+
               {item.title}
               {/* <span className="badge badge-primary badge-pill">
                 {item.count}

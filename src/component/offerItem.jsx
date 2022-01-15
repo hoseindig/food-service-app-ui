@@ -17,7 +17,7 @@ const OfferItem = ({ item, addItemToShopList,addItemToFavorite }) => {
           onClick={() => addItemToShopList(item)}
           className="btn btn-primary"
         >
-          قیمت {item.price} تومان
+          قیمت {item.price.toLocaleString()} تومان
         </button>
       </div>
     </div>
