@@ -115,7 +115,16 @@ class Main extends Component {
     if (index !== -1) products[index].isFavorite = !products[index].isFavorite;
     else products.push(item);
     this.setState({ products });
-    console.log("addItemToShopList", products);
+    console.log("addItemToFavorite", products);
+  };
+
+  deleteItemToShopList = (item) => {
+    let shopList = this.state.shopList;
+    const index = shopList.findIndex((i) => item.id === i.id);
+    if (index !== -1) shopList.splice(index,1);
+    else shopList.push(item);
+    this.setState({ shopList });
+    console.log("deleteItemToShopList", shopList);
   };
 
   render() {
@@ -125,7 +134,7 @@ class Main extends Component {
         <Navbar />
         <QuickMenu />
         <OrderByTell />
-        <ToolbarShopAndUser shopList={this.state.shopList} liked={liked} />
+        <ToolbarShopAndUser deleteItemToShopList={this.deleteItemToShopList} shopList={this.state.shopList} liked={liked} />
         <Switch>
           <Route
             path="/products"

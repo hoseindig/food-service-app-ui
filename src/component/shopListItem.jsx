@@ -1,4 +1,4 @@
-const ShopListItem = ({ shopList }) => {
+const ShopListItem = ({ shopList,deleteItemToShopList }) => {
   const tootalBill = shopList.reduce(
     (n, { price, count }) => n + price * count,
     0
@@ -19,6 +19,8 @@ const ShopListItem = ({ shopList }) => {
                 {item.count} x
               </span>
               {item.price.toLocaleString()} تومان
+
+              <i class="fa fa-trash" aria-hidden="true" onClick={()=> deleteItemToShopList(item)}></i>
             </li>
           );
         })}

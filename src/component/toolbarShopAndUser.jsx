@@ -19,7 +19,7 @@ class LoginBoxInMainPage extends Component {
   };
 
   render() {
-    const { shopList, liked } = this.props;
+    const { shopList, liked, deleteItemToShopList } = this.props;
     let { showShopListItem, showLikedListItem } = this.state;
 
     return (
@@ -27,7 +27,7 @@ class LoginBoxInMainPage extends Component {
         className="LoginBox"
         onMouseLeave={() => this.showHideShopListItem()}
       >
-        {showShopListItem === true ? <ShopListItem shopList={shopList} /> : ""}
+        {showShopListItem === true ? <ShopListItem deleteItemToShopList={deleteItemToShopList} shopList={shopList} /> : ""}
         {showLikedListItem === true ? <LikeListItem likeList={liked} /> : ""}
         <i className="fa fa-user-o" aria-hidden="true"></i>
         {/* <i className="fa fa-heart-o" aria-hidden="true"></i> */}
@@ -52,7 +52,7 @@ class LoginBoxInMainPage extends Component {
           </span>
         </div>
 
-        <i className="fa fa-search" aria-hidden="true"></i>
+        <i className="fa fa-search" aria-hidden="true" ></i>
       </div>
     );
   }
