@@ -16,7 +16,7 @@ class Main extends Component {
         info: "دوتا همبرگر دستی حرفه ای با پیاز کاراملی و پنیر موزارلا و یک سس خاص",
         price: 99900,
         image: "images/bergers/monster.jpg",
-        count: 1,
+        count: 0,
         type: 1,
         isFavorite: false, //favorite
         isSpecialOffer: true,
@@ -30,7 +30,7 @@ class Main extends Component {
         type: 1,
         isFavorite: false,
         isSpecialOffer: true,
-        count: 1,
+        count: 0,
       },
       {
         id: 3,
@@ -41,7 +41,7 @@ class Main extends Component {
         type: 1,
         isFavorite: false,
         isSpecialOffer: true,
-        count: 1,
+        count: 0,
       },
       {
         id: 4,
@@ -52,7 +52,7 @@ class Main extends Component {
         type: 1,
         isFavorite: false,
         isSpecialOffer: true,
-        count: 1,
+        count: 0,
       },
 
       {
@@ -64,7 +64,7 @@ class Main extends Component {
         type: 2,
         isFavorite: false,
         isSpecialOffer: true,
-        count: 1,
+        count: 0,
       },
       {
         id: 6,
@@ -75,7 +75,7 @@ class Main extends Component {
         type: 2,
         isFavorite: false,
         isSpecialOffer: false,
-        count: 1,
+        count: 0,
       },
       {
         id: 7,
@@ -86,7 +86,7 @@ class Main extends Component {
         type: 2,
         isFavorite: false,
         isSpecialOffer: false,
-        count: 1,
+        count: 0,
       },
       {
         id: 8,
@@ -97,15 +97,20 @@ class Main extends Component {
         type: 2,
         isFavorite: false,
         isSpecialOffer: false,
-        count: 1,
+        count: 0,
       },
     ],
   };
   addItemToShopList = (item) => {
     let shopList = this.state.shopList;
+    debugger;
     const index = shopList.findIndex((i) => item.id === i.id);
     if (index !== -1) shopList[index].count++;
-    else shopList.push(item);
+    else {
+      item.count++;
+      shopList.push(item);
+    }
+
     this.setState({ shopList });
     console.log("addItemToShopList", shopList);
   };
@@ -120,11 +125,27 @@ class Main extends Component {
 
   deleteItemToShopList = (item) => {
     let shopList = this.state.shopList;
+    let products = this.state.products;
     const index = shopList.findIndex((i) => item.id === i.id);
-    if (index !== -1) shopList.splice(index,1);
+    const indexproducts = products.findIndex((i) => item.id === i.id);
+    if (index !== -1) shopList.splice(index, 1);
+    if (indexproducts !== -1) products[indexproducts].count = 0;
     else shopList.push(item);
-    this.setState({ shopList });
+    this.setState({ shopList, products });
     console.log("deleteItemToShopList", shopList);
+  };
+
+  increaseDecreaseItemToShopList = (item, p) => {
+    let shopList = this.state.shopList;
+    // debugger;
+    const index = shopList.findIndex((i) => item.id === i.id);
+    if (index !== -1) {
+      p ? shopList[index].count++ : shopList[index].count--;
+
+      if (shopList[index].count === 0) shopList.splice(index, 1);
+      this.setState({ shopList });
+      console.log("deleteItemToShopList", shopList);
+    }
   };
 
   render() {
@@ -134,7 +155,12 @@ class Main extends Component {
         <Navbar />
         <QuickMenu />
         <OrderByTell />
-        <ToolbarShopAndUser deleteItemToShopList={this.deleteItemToShopList} shopList={this.state.shopList} liked={liked} />
+        <ToolbarShopAndUser
+          deleteItemToShopList={this.deleteItemToShopList}
+          increaseDecreaseItemToShopList={this.increaseDecreaseItemToShopList}
+          shopList={this.state.shopList}
+          liked={liked}
+        />
         <Switch>
           <Route
             path="/products"
@@ -144,6 +170,7 @@ class Main extends Component {
                 addItemToShopList={this.addItemToShopList}
                 addItemToFavorite={this.addItemToFavorite}
                 products={this.state.products}
+                shopList={this.state.shopList}
               />
             )}
           />

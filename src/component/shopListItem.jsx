@@ -1,4 +1,8 @@
-const ShopListItem = ({ shopList,deleteItemToShopList }) => {
+const ShopListItem = ({
+  shopList,
+  deleteItemToShopList,
+  increaseDecreaseItemToShopList,
+}) => {
   const tootalBill = shopList.reduce(
     (n, { price, count }) => n + price * count,
     0
@@ -19,8 +23,21 @@ const ShopListItem = ({ shopList,deleteItemToShopList }) => {
                 {item.count} x
               </span>
               {item.price.toLocaleString()} تومان
-
-              <i class="fa fa-trash" aria-hidden="true" onClick={()=> deleteItemToShopList(item)}></i>
+              <i
+                className="fa fa-plus"
+                aria-hidden="true"
+                onClick={() => increaseDecreaseItemToShopList(item, 1)}
+              ></i>
+              <i
+                className="fa fa-minus"
+                aria-hidden="true"
+                onClick={() => increaseDecreaseItemToShopList(item)}
+              ></i>
+              <i
+                className="fa fa-trash"
+                aria-hidden="true"
+                onClick={() => deleteItemToShopList(item)}
+              ></i>
             </li>
           );
         })}

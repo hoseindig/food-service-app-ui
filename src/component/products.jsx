@@ -3,7 +3,8 @@ import OfferItem from "./offerItem";
 // import "./col.css";
 class Products extends React.Component {
   render() {
-    const { addItemToShopList, products,addItemToFavorite } = this.props;
+    const { addItemToShopList, products, addItemToFavorite, shopList } =
+      this.props;
 
     return (
       // <div className="Products">
@@ -17,7 +18,7 @@ class Products extends React.Component {
                 return (
                   <div
                     key={item.id}
-                    className="col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                    className="col-lg-4 col-md-3 col-sm-6 col-xs-6"
                   >
                     <OfferItem
                       item={item}
