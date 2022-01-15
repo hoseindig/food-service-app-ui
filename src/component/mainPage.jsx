@@ -2,7 +2,7 @@ import SpecialOffer from "./specialOffer";
 import TwoOffer from "./twoOffer";
 import MainBox from "./mainBox";
 
-const MainPage = ({ addItemToShopList }) => {
+const MainPage = ({ addItemToShopList, products }) => {
   // function testhandler() {
   //   debugger
   //   console.log("testhandler");
@@ -11,7 +11,7 @@ const MainPage = ({ addItemToShopList }) => {
     <div>
       {/* <button onClick={() => testhandler}>testhandler</button> */}
       <MainBox className="header" />
-      <SpecialOffer addItemToShopList={addItemToShopList} />
+      <SpecialOffer addItemToShopList={addItemToShopList} products={products} />
       <TwoOffer />
     </div>
   );

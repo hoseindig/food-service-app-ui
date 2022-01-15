@@ -211,17 +211,23 @@ li a:hover {
   z-index: 10000;
 }
 
-.SpecialOffer {
+.SpecialOffer ,.Products{
   padding: 5vw;
   font-weight: bold;
+}
+.Products{
+  // margin-top: 100px;
 }
 
 .card {
   transition: 0.3s;
-  transform: scale(0.95);
+  transform: scale(0.96);
+  .like{
+    color: #ff0000;
+  }
 }
 .card:hover {
-  transform: scale(1);
+  transform: scale(.99);
   cursor: pointer;
   box-shadow: 0 0 10px rgb(161, 156, 156);
 }
@@ -266,8 +272,10 @@ li a:hover {
 }
 
 .Products {
-  margin-top: 300px;
+  margin-top: 200px;
 }
+
+
 
 .shop-list-items {
   position: absolute;

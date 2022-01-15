@@ -1,4 +1,6 @@
-const OfferItem = ({ item, addItemToShopList }) => {
+const OfferItem = ({ item, addItemToShopList,addItemToFavorite }) => {
+  const cssClass= item.isFavorite ? "like ms-4 fa fa-heart " : "like ms-4 fa fa-heart-o "
+
   return (
     <div className="card" key={item.id}>
       <img src={item.image} alt="" />
@@ -9,6 +11,8 @@ const OfferItem = ({ item, addItemToShopList }) => {
       </div>
       <div className="card-footer">
         {/* <small class="text-muted">Last updated 3 mins ago</small> */}
+        <i className={cssClass} aria-hidden="true" onClick={() => addItemToFavorite(item)}></i>
+        
         <button
           onClick={() => addItemToShopList(item)}
           className="btn btn-primary"
