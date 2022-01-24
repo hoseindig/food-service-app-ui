@@ -1,5 +1,6 @@
 const ShopListItem = ({
   shopList,
+  confirmShopList,
   deleteItemToShopList,
   increaseDecreaseItemToShopList,
 }) => {
@@ -51,6 +52,7 @@ const ShopListItem = ({
           <button
             className="btn btn-succsess"
             style={{ color: "white", backgroundColor: "green" }}
+            onClick={() => confirmShopList()}
           >
             تایید نهایی
           </button>
