@@ -22,6 +22,7 @@ class LoginBoxInMainPage extends Component {
     const {
       shopList,
       liked,
+      confirmShopList,
       deleteItemToShopList,
       increaseDecreaseItemToShopList,
     } = this.props;
@@ -37,6 +38,7 @@ class LoginBoxInMainPage extends Component {
             deleteItemToShopList={deleteItemToShopList}
             increaseDecreaseItemToShopList={increaseDecreaseItemToShopList}
             shopList={shopList}
+            confirmShopList={confirmShopList}
           />
         ) : (
           ""
