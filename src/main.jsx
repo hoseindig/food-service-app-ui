@@ -6,6 +6,10 @@ import OrderByTell from "./component/orderByTell";
 import MainPage from "./component/mainPage";
 import { Switch, Route } from "react-router-dom";
 import Products from "./component/products";
+// import axios from "axios";
+import http from "./api/httpService";
+import config from "./config.json";
+
 class Main extends Component {
   state = {
     shopList: [],
@@ -148,6 +152,34 @@ class Main extends Component {
     }
   };
 
+  confirmShopList = async() => {
+    debugger;
+    const { shopList } = this.state;
+    const data = await http.post(config.apiEndpoint+'order/new', shopList);
+    debugger;
+
+    // try {
+    //   const response = await axios.request({
+    //     baseURL: "http://localhost:3100/api/",
+    //     url: "order/add",
+    //     method: "POST",
+    //     data: shopList,
+    //   });
+    //   console.log('confirmShopList',response.data);
+    //   //genral onSuccess action
+    //   // dispatch(actions.apiCallSuccess(response.data));
+    //   //Specific
+    //   // if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+    // } catch (error) {
+    //   console.log('confirmShopList ',error.message);
+
+    //   //genral error action
+    //   // dispatch(actions.apiCallonError(error.message));
+    //   //Specific
+    //   // if (onError) dispatch({ type: onError, payload: error.message });
+    // }
+  };
+
   render() {
     const liked = this.state.products.filter((i) => i.isFavorite);
     return (
@@ -160,6 +192,7 @@ class Main extends Component {
           increaseDecreaseItemToShopList={this.increaseDecreaseItemToShopList}
           shopList={this.state.shopList}
           liked={liked}
+          confirmShopList={this.confirmShopList}
         />
         <Switch>
           <Route
