@@ -53,18 +53,14 @@ app.patch("/api/bugs/:id", (req, res) => {
   else res.json({ error: "Bug Not Found !", isSuccsess: false });
 });
 
-
-
-
 ///////////////////
 //
-let orders=[]
+let orders = [];
 app.post("/api/order/new", (req, res) => {
   const order = { id: Date.now(), ...req.body };
-  orders.push(order)
+  orders.push(order);
   console.log("post ", order);
-
-  res.json(order);
+  res.json({ isSucsses: true, mesagge: "sucsess", order });
 });
 
 app.listen(9001, () => {
