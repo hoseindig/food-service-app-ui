@@ -6,12 +6,18 @@ import OrderByTell from "./component/orderByTell";
 import MainPage from "./component/mainPage";
 import { Switch, Route } from "react-router-dom";
 import Products from "./component/products";
+import { toast } from "react-toastify";
+
 // import axios from "axios";
 import http from "./api/httpService";
 import config from "./config.json";
 
+import OrderInfoModal from "./orderInfoModal";
+
 class Main extends Component {
   state = {
+    modalShow: false,
+    orderInfoModalShow: false,
     shopList: [],
     products: [
       {
@@ -137,7 +143,7 @@ class Main extends Component {
     else shopList.push(item);
     this.setState({ shopList, products });
     console.log("deleteItemToShopList", shopList);
-  };
+}
 
   increaseDecreaseItemToShopList = (item, p) => {
     let shopList = this.state.shopList;
@@ -152,38 +158,35 @@ class Main extends Component {
     }
   };
 
-  confirmShopList = async() => {
-    debugger;
+  confirmShopList = () => {
+    this.setOrderInfoModalShowShow();
+  };
+
+  sendShopList = async () => {
     const { shopList } = this.state;
-    const data = await http.post(config.apiEndpoint+'order/new', shopList);
+    const data = await http.post(config.apiEndpoint + "order/new", shopList);
+    if (data.data.isSucsses) {
+      this.setOrderInfoModalShowShow();
+      toast.success("ثبت شفارش موفق بود.");
+    }
     debugger;
-
-    // try {
-    //   const response = await axios.request({
-    //     baseURL: "http://localhost:3100/api/",
-    //     url: "order/add",
-    //     method: "POST",
-    //     data: shopList,
-    //   });
-    //   console.log('confirmShopList',response.data);
-    //   //genral onSuccess action
-    //   // dispatch(actions.apiCallSuccess(response.data));
-    //   //Specific
-    //   // if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
-    // } catch (error) {
-    //   console.log('confirmShopList ',error.message);
-
-    //   //genral error action
-    //   // dispatch(actions.apiCallonError(error.message));
-    //   //Specific
-    //   // if (onError) dispatch({ type: onError, payload: error.message });
-    // }
+  };
+  setOrderInfoModalShowShow = (p) => {
+    if (p) this.setState({ orderInfoModalShow: p });
+    let orderInfoModalShow = !this.state.orderInfoModalShow;
+    this.setState({ orderInfoModalShow });
   };
 
   render() {
     const liked = this.state.products.filter((i) => i.isFavorite);
     return (
       <div>
+        <OrderInfoModal
+          sendShopList={this.sendShopList}
+          show={this.state.orderInfoModalShow}
+          setShow={this.setOrderInfoModalShowShow}
+          data={this.state.shopList}
+        />
         <Navbar />
         <QuickMenu />
         <OrderByTell />
