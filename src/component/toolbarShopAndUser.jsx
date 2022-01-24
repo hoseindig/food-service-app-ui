@@ -20,8 +20,9 @@ class LoginBoxInMainPage extends Component {
 
   render() {
     const {
-      shopList,
       liked,
+      shopList,
+      ordersTracking,
       confirmShopList,
       deleteItemToShopList,
       increaseDecreaseItemToShopList,
@@ -66,7 +67,15 @@ class LoginBoxInMainPage extends Component {
             <span className="visually-hidden">unread messages</span>
           </span>
         </div>
-
+        <div
+          className=" fa fa-shopping-cart position-relative"
+          onMouseEnter={() => this.showHideShopListItem(true)}
+        >
+          <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+            {ordersTracking.length}
+            <span className="visually-hidden">unread messages</span>
+          </span>
+        </div>
         <i className="fa fa-search" aria-hidden="true"></i>
       </div>
     );

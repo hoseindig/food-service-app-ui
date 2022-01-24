@@ -19,6 +19,7 @@ class Main extends Component {
     modalShow: false,
     orderInfoModalShow: false,
     shopList: [],
+    ordersTracking: [],
     products: [
       {
         id: 1,
@@ -143,7 +144,7 @@ class Main extends Component {
     else shopList.push(item);
     this.setState({ shopList, products });
     console.log("deleteItemToShopList", shopList);
-}
+  };
 
   increaseDecreaseItemToShopList = (item, p) => {
     let shopList = this.state.shopList;
@@ -163,12 +164,21 @@ class Main extends Component {
   };
 
   sendShopList = async () => {
-    const { shopList } = this.state;
-    const data = await http.post(config.apiEndpoint + "order/new", shopList);
+    let { shopList, ordersTracking } = this.state;
+    const data = await http.post(config.apiEndpoint + "order/new", {
+      data: { shopList },
+    });
     if (data.data.isSucsses) {
+      ordersTracking.push({
+        ...data.data.order,
+        issueTracking: data.data.issueTracking,
+      });
+      shopList=[]
+      this.setState({ shopList, ordersTracking });
       this.setOrderInfoModalShowShow();
       toast.success("ثبت شفارش موفق بود.");
-    }
+    } else toast.error("صبت سفارش انجام نشد");
+
     debugger;
   };
   setOrderInfoModalShowShow = (p) => {
@@ -194,6 +204,7 @@ class Main extends Component {
           deleteItemToShopList={this.deleteItemToShopList}
           increaseDecreaseItemToShopList={this.increaseDecreaseItemToShopList}
           shopList={this.state.shopList}
+          ordersTracking={this.state.ordersTracking}
           liked={liked}
           confirmShopList={this.confirmShopList}
         />

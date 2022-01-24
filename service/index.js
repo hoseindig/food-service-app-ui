@@ -57,10 +57,23 @@ app.patch("/api/bugs/:id", (req, res) => {
 //
 let orders = [];
 app.post("/api/order/new", (req, res) => {
-  const order = { id: Date.now(), ...req.body };
-  orders.push(order);
-  console.log("post ", order);
-  res.json({ isSucsses: true, mesagge: "sucsess", order });
+  try {
+    const { data } = req.body;
+    const order = { id: Date.now(), data };
+    orders.push(order);
+    console.log("post ", order.data.shopList, "#issueTracking", order.id);
+    res.json({
+      isSucsses: true,
+      mesagge: "sucsess",
+      issueTracking: order.id,
+      order,
+    });
+  } catch (e) {
+    res.json({
+      isSucsses: false,
+      mesagge: "error " + e,
+    });
+  }
 });
 
 app.listen(9001, () => {
