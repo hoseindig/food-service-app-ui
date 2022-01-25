@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import ShopListItem from "./shopListItem";
+import OrderTacking from "./orderTracking";
 import LikeListItem from "./likeListItem";
 class LoginBoxInMainPage extends Component {
   state = {
     showShopListItem: false,
     showLikedListItem: false,
+    showOrdersTracking: false,
   };
   showHideShopListItem = (p) => {
+    if (p === 2) {
+      this.setState({ showShopListItem: true, showOrdersTracking: true });
+      return;
+    }
     let showShopListItem = p ? p : false;
-    this.setState({ showShopListItem });
+    this.setState({ showShopListItem, showOrdersTracking: false , showLikedListItem: false });
     if (!p) this.showHideLikeListItem();
     // console.log(showShopListItem);
   };
@@ -34,12 +40,26 @@ class LoginBoxInMainPage extends Component {
         className="LoginBox"
         onMouseLeave={() => this.showHideShopListItem()}
       >
-        {showShopListItem === true ? (
+        {showShopListItem === true && this.state.showOrdersTracking===false? (
           <ShopListItem
             deleteItemToShopList={deleteItemToShopList}
             increaseDecreaseItemToShopList={increaseDecreaseItemToShopList}
             shopList={shopList}
             confirmShopList={confirmShopList}
+            ordersTracking={ordersTracking}
+            showOrdersTracking={this.state.showOrdersTracking}
+          />
+        ) : (
+          ""
+        )}
+        {showShopListItem === true && this.state.showOrdersTracking===true? (
+          <OrderTacking
+            deleteItemToShopList={deleteItemToShopList}
+            increaseDecreaseItemToShopList={increaseDecreaseItemToShopList}
+            shopList={shopList}
+            confirmShopList={confirmShopList}
+            ordersTracking={ordersTracking}
+            showOrdersTracking={this.state.showOrdersTracking}
           />
         ) : (
           ""
@@ -67,9 +87,10 @@ class LoginBoxInMainPage extends Component {
             <span className="visually-hidden">unread messages</span>
           </span>
         </div>
+
         <div
-          className=" fa fa-shopping-cart position-relative"
-          onMouseEnter={() => this.showHideShopListItem(true)}
+          className=" fa fa-cutlery position-relative"
+          onMouseEnter={() => this.showHideShopListItem(2)}
         >
           <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
             {ordersTracking.length}

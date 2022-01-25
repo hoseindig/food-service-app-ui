@@ -113,13 +113,15 @@ class Main extends Component {
     ],
   };
   addItemToShopList = (item) => {
-    let shopList = this.state.shopList;
+    let {shopList} = this.state;
     debugger;
     const index = shopList.findIndex((i) => item.id === i.id);
     if (index !== -1) shopList[index].count++;
     else {
+      if (!item.count) item.count = 0;
       item.count++;
-      shopList.push(item);
+      // shopList.push(item);
+      shopList=[...shopList,item]
     }
 
     this.setState({ shopList });
@@ -173,7 +175,7 @@ class Main extends Component {
         ...data.data.order,
         issueTracking: data.data.issueTracking,
       });
-      shopList=[]
+      shopList = [];
       this.setState({ shopList, ordersTracking });
       this.setOrderInfoModalShowShow();
       toast.success("ثبت شفارش موفق بود.");
