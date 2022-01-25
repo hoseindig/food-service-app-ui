@@ -211,23 +211,24 @@ li a:hover {
   z-index: 10000;
 }
 
-.SpecialOffer ,.Products{
+.SpecialOffer,
+.Products {
   padding: 5vw;
   font-weight: bold;
 }
-.Products{
+.Products {
   // margin-top: 100px;
 }
 
 .card {
   transition: 0.3s;
   transform: scale(0.96);
-  .like{
+  .like {
     color: #ff0000;
   }
 }
 .card:hover {
-  transform: scale(.99);
+  transform: scale(0.99);
   cursor: pointer;
   box-shadow: 0 0 10px rgb(161, 156, 156);
 }
@@ -275,7 +276,31 @@ li a:hover {
   margin-top: 200px;
 }
 
-
+.orders-tracking-list-items {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 99999999;
+  color: #111111;
+  ul,ol {
+    border: 1px sold gray;
+    border-radius: 5px;
+    background-color: white;
+    // display: flex;
+    li {
+      
+      float: right;
+      width: 100%;
+      text-align: right;
+      margin: 2px 5px;
+      
+    }
+  }
+  .badge-pill {
+    font-size: 1em;
+    color: #ff0000;
+  }
+}
 
 .shop-list-items {
   position: absolute;
@@ -289,6 +314,6 @@ li a:hover {
   }
 }
 
-.modal{
-  z-index: 999999!important;
+.modal {
+  z-index: 999999 !important;
 }
