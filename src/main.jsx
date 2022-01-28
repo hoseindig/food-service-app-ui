@@ -7,6 +7,7 @@ import MainPage from "./component/mainPage";
 import { Switch, Route } from "react-router-dom";
 import Products from "./component/products";
 import { toast } from "react-toastify";
+// import io from 'socket.io-client';
 
 // import axios from "axios";
 import http from "./api/httpService";
@@ -164,13 +165,27 @@ class Main extends Component {
   confirmShopList = () => {
     this.setOrderInfoModalShowShow();
   };
-
+  handleGetOrderStateListener(p) {
+    console.log("handleGetOrderStateListener",p);
+  }
   sendShopList = async () => {
     let { shopList, ordersTracking } = this.state;
     const data = await http.post(config.apiEndpoint + "order/new", {
       data: { shopList },
     });
     if (data.data.isSucsses) {
+      debugger;
+      // get order state by sokect
+      const { socket } = this.props;
+      if (socket) {
+        //requast
+        socket.emit("getOrderState", data.data.issueTracking);
+        //listen from respond
+        socket.on("getOrderState", (res) =>
+          this.handleGetOrderStateListener(res)
+        );
+      }
+      ////////////////////////////
       ordersTracking.push({
         ...data.data.order,
         issueTracking: data.data.issueTracking,
@@ -184,7 +199,7 @@ class Main extends Component {
       this.setOrderInfoModalShowShow();
     }
 
-    debugger;
+    // debugger;
   };
   setOrderInfoModalShowShow = (p) => {
     if (p) this.setState({ orderInfoModalShow: p });
@@ -193,7 +208,14 @@ class Main extends Component {
   };
 
   render() {
+    // const { socket } = this.props;
     const liked = this.state.products.filter((i) => i.isFavorite);
+    //listen from respond
+    // if (socket)
+    //   socket.on("getOrderState", (res) =>
+    //     // this.handleGetOrderStateListener(res)
+    //     console.log("getOrderState")
+    //   );
     return (
       <div>
         <OrderInfoModal
