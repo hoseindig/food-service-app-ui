@@ -113,7 +113,7 @@ class Main extends Component {
     ],
   };
   addItemToShopList = (item) => {
-    let {shopList} = this.state;
+    let { shopList } = this.state;
     debugger;
     const index = shopList.findIndex((i) => item.id === i.id);
     if (index !== -1) shopList[index].count++;
@@ -121,7 +121,7 @@ class Main extends Component {
       if (!item.count) item.count = 0;
       item.count++;
       // shopList.push(item);
-      shopList=[...shopList,item]
+      shopList = [...shopList, item];
     }
 
     this.setState({ shopList });
@@ -179,7 +179,10 @@ class Main extends Component {
       this.setState({ shopList, ordersTracking });
       this.setOrderInfoModalShowShow();
       toast.success("ثبت شفارش موفق بود.");
-    } else toast.error("صبت سفارش انجام نشد");
+    } else {
+      toast.error("ثبت سفارش انجام نشد");
+      this.setOrderInfoModalShowShow();
+    }
 
     debugger;
   };
