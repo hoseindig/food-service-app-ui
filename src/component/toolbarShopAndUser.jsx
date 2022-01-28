@@ -28,6 +28,7 @@ class LoginBoxInMainPage extends Component {
     const {
       liked,
       shopList,
+      stateOrderText,
       ordersTracking,
       confirmShopList,
       deleteItemToShopList,
@@ -60,6 +61,7 @@ class LoginBoxInMainPage extends Component {
             confirmShopList={confirmShopList}
             ordersTracking={ordersTracking}
             showOrdersTracking={this.state.showOrdersTracking}
+            stateOrderText={stateOrderText}
           />
         ) : (
           ""

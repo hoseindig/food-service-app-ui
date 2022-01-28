@@ -18,6 +18,12 @@ import OrderInfoModal from "./orderInfoModal";
 class Main extends Component {
   state = {
     modalShow: false,
+    stateOrderText: [
+      { id: 1, text: "  در انتظار تایید" },
+      { id: 2, text: " تایید شده" },
+      { id: 3, text: " آماده" },
+      { id: 4, text: " لغو شده" },
+    ],
     orderInfoModalShow: false,
     shopList: [],
     ordersTracking: [],
@@ -121,6 +127,7 @@ class Main extends Component {
     else {
       if (!item.count) item.count = 0;
       item.count++;
+      item.serveType = 99; //initernet order
       // shopList.push(item);
       shopList = [...shopList, item];
     }
@@ -166,7 +173,23 @@ class Main extends Component {
     this.setOrderInfoModalShowShow();
   };
   handleGetOrderStateListener(p) {
-    console.log("handleGetOrderStateListener",p);
+    console.log("%chandleGetOrderStateListener", "background:blue", p);
+  }
+  handleGetOrderListener(p) {
+    console.log("%chandleGetOrderListener", "background:blue", p);
+
+    let { ordersTracking, stateOrderText } = this.state;
+
+    ordersTracking.forEach((element, index) => {
+      console.log(p.trackNumber);
+      if (p.trackNumber === element.id) {
+        // debugger;
+        let msg = stateOrderText.find((i) => i.id === p.state);
+        toast("   وضعیت سفارش :  " + msg.text);
+        ordersTracking[index] = { ...element, state: p.state };
+      }
+    });
+    this.setState({ ordersTracking });
   }
   sendShopList = async () => {
     let { shopList, ordersTracking } = this.state;
@@ -184,6 +207,7 @@ class Main extends Component {
         socket.on("getOrderState", (res) =>
           this.handleGetOrderStateListener(res)
         );
+        socket.on("orders", (res) => this.handleGetOrderListener(res));
       }
       ////////////////////////////
       ordersTracking.push({
@@ -234,6 +258,7 @@ class Main extends Component {
           ordersTracking={this.state.ordersTracking}
           liked={liked}
           confirmShopList={this.confirmShopList}
+          stateOrderText={this.state.stateOrderText}
         />
         <Switch>
           <Route

@@ -1,6 +1,7 @@
 import { Row, Col } from "react-bootstrap";
 const OrderTacking = ({
   shopList,
+  stateOrderText,
   ordersTracking,
   confirmShopList,
   deleteItemToShopList,
@@ -17,18 +18,21 @@ const OrderTacking = ({
         {/* <span style={{"color":"white"}}>{shopList.length}</span> */}
         {ordersTracking.map((item) => {
           return (
-            <li
-              className="list-group-item   "
-              key={item.id}
-            >
+            <li className="list-group-item   " key={item.id}>
               <ul>
                 <li>
-                  <h4>شماره سفارش : {item.issueTracking}</h4>
+                  <h4>
+                    <span>شماره سفارش : {item.issueTracking} </span>
+                    <span>
+                      وضعیت :
+                      {stateOrderText.find((i) => i.id === item.state).text}
+                    </span>
+                  </h4>
                 </li>
               </ul>
 
               <ol>
-                {item.data.shopList.map((shopItem) => {
+                {item.shopList.map((shopItem) => {
                   return (
                     <li key={shopItem.id}>
                       <img src={shopItem.image} alt="" width="30" />
