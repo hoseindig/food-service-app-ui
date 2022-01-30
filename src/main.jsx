@@ -15,6 +15,8 @@ import config from "./config.json";
 
 import OrderInfoModal from "./orderInfoModal";
 
+import socket from './socket'
+
 class Main extends Component {
   state = {
     modalShow: false,
@@ -118,6 +120,14 @@ class Main extends Component {
         count: 0,
       },
     ],
+    userData:{
+      username:'hs',
+      password:1,
+      name:'hossein',
+      familyName:'sheikhi',
+    }
+    ,
+    users: [], user: {}, selectedUser: {}, usernameAlreadySelected: false, messages: [] 
   };
   addItemToShopList = (item) => {
     let { shopList } = this.state;
@@ -199,7 +209,7 @@ class Main extends Component {
     if (data.data.isSucsses) {
       debugger;
       // get order state by sokect
-      const { socket } = this.props;
+      // const { socket } = this.props;
       if (socket) {
         //requast
         socket.emit("getOrderState", data.data.issueTracking);
@@ -231,6 +241,133 @@ class Main extends Component {
     this.setState({ orderInfoModalShow });
   };
 
+  /////////////////////////////////////
+  //socket handele
+   //handele socket.on event 
+   componentDidMount() {
+    console.log('componentDidMount');
+
+    this.socketRegisterUserForConnect('internet user')
+
+    socket.on("connect", () => {
+      this.state.users.forEach((user) => {
+        if (user.self) {
+          user.connected = true;
+        }
+      });
+    });
+
+    socket.on("disconnect", () => {
+      this.state.users.forEach((user) => {
+        if (user.self) {
+          user.connected = false;
+        }
+      });
+    });
+
+    const initReactiveProperties = (user) => {
+      user.connected = true;
+      user.messages = [];
+      user.hasNewMessages = false;
+    };
+
+    socket.on("users", (users) => {
+      console.log("users", users);
+      users.forEach((user) => {
+        user.self = user.userID === socket.id;
+        initReactiveProperties(user);
+      });
+      // put the current user first, and sort by username
+      users.sort((a, b) => {
+        if (a.self) return -1;
+        if (b.self) return 1;
+        if (a.username < b.username) return -1;
+        return a.username > b.username ? 1 : 0;
+      });
+      this.setState({ users })
+    });
+
+    socket.on("user connected", (user) => {
+      initReactiveProperties(user);
+      const { users } = this.state
+      users.push(user);
+      this.setState({ users })
+    });
+
+    socket.on("user disconnected", (id) => {
+      const { users } = this.state
+
+      for (let i = 0; i < users.length; i++) {
+        const user = this.state.users[i];
+        if (user.userID === id) {
+          user.connected = false;
+          break;
+        }
+      }
+      this.setState({ users })
+    });
+
+    socket.on("private message", ({ content, from }) => {
+      const { users, messages } = this.state
+      debugger
+      for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        if (user.userID === from) {
+          messages.push({ ...user, message:content })
+          user.messages.push({
+            content,
+            fromSelf: false,
+          });
+          if (user !== this.state.selectedUser) {
+            user.hasNewMessages = true;
+          }
+          break;
+        }
+      }
+      this.setState({ messages, users })
+    });
+
+  }
+  //handele socket.off  
+  componentWillUnmount() {
+    socket.off("connect");
+    socket.off("disconnect");
+    socket.off("users");
+    socket.off("user connected");
+    socket.off("user disconnected");
+    socket.off("private message");
+  }
+
+  onMessage(content) {
+    // debugger
+    if (this.state.selectedUser.userID) {
+      socket.emit("private message", {
+        content,
+        to: this.state.selectedUser.userID,
+      });
+      this.state.selectedUser.messages.push({
+        content,
+        fromSelf: true,
+      });
+    } else alert("select user")
+  }
+  onSelectUser = (user) => {
+    console.log("onSelectUser user.username", user.username);
+    const selectedUser = {
+      ...user,
+      hasNewMessages: false
+    }
+    this.setState({ selectedUser })
+  }
+
+  socketRegisterUserForConnect = (username, password, ptype) => {
+    console.log("onUsernameSelection username", username);
+    this.setState({ usernameAlreadySelected: true })
+    const type = ptype ? ptype : 1
+    socket.auth = { username, password, type };
+    socket.connect();
+  }
+/////////////////////////////////////
   render() {
     // const { socket } = this.props;
     const liked = this.state.products.filter((i) => i.isFavorite);
@@ -259,6 +396,7 @@ class Main extends Component {
           liked={liked}
           confirmShopList={this.confirmShopList}
           stateOrderText={this.state.stateOrderText}
+          userData={this.state.userData}
         />
         <Switch>
           <Route
