@@ -14,7 +14,7 @@ class LoginBoxInMainPage extends Component {
       return;
     }
     let showShopListItem = p ? p : false;
-    this.setState({ showShopListItem, showOrdersTracking: false , showLikedListItem: false });
+    this.setState({ showShopListItem, showOrdersTracking: false, showLikedListItem: false });
     if (!p) this.showHideLikeListItem();
     // console.log(showShopListItem);
   };
@@ -27,6 +27,7 @@ class LoginBoxInMainPage extends Component {
   render() {
     const {
       liked,
+      userData,
       shopList,
       stateOrderText,
       ordersTracking,
@@ -41,7 +42,7 @@ class LoginBoxInMainPage extends Component {
         className="LoginBox"
         onMouseLeave={() => this.showHideShopListItem()}
       >
-        {showShopListItem === true && this.state.showOrdersTracking===false? (
+        {showShopListItem === true && this.state.showOrdersTracking === false ? (
           <ShopListItem
             deleteItemToShopList={deleteItemToShopList}
             increaseDecreaseItemToShopList={increaseDecreaseItemToShopList}
@@ -53,7 +54,7 @@ class LoginBoxInMainPage extends Component {
         ) : (
           ""
         )}
-        {showShopListItem === true && this.state.showOrdersTracking===true? (
+        {showShopListItem === true && this.state.showOrdersTracking === true ? (
           <OrderTacking
             deleteItemToShopList={deleteItemToShopList}
             increaseDecreaseItemToShopList={increaseDecreaseItemToShopList}
@@ -67,9 +68,12 @@ class LoginBoxInMainPage extends Component {
           ""
         )}
         {showLikedListItem === true ? <LikeListItem likeList={liked} /> : ""}
-        <i className="fa fa-user-o" aria-hidden="true"></i>
-        {/* <i className="fa fa-heart-o" aria-hidden="true"></i> */}
 
+
+        {/* user */}
+        <i className="fa fa-user-o" aria-hidden="true" title={userData.name + " " + userData.familyName}></i>
+        {/* <i className="fa fa-heart-o" aria-hidden="true"></i> */}
+        {/* heart */}
         <div
           className=" fa fa-heart-o position-relative"
           onMouseEnter={() => this.showHideLikeListItem(true)}
@@ -79,7 +83,7 @@ class LoginBoxInMainPage extends Component {
             <span className="visually-hidden">unread messages</span>
           </span>
         </div>
-
+        {/* basket */}
         <div
           className=" fa fa-shopping-basket position-relative"
           onMouseEnter={() => this.showHideShopListItem(true)}
@@ -89,7 +93,7 @@ class LoginBoxInMainPage extends Component {
             <span className="visually-hidden">unread messages</span>
           </span>
         </div>
-
+        {/* cutlery */}
         <div
           className=" fa fa-cutlery position-relative"
           onMouseEnter={() => this.showHideShopListItem(2)}
