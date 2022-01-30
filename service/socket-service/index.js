@@ -1,7 +1,7 @@
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "http://192.168.1.151:3000",
+    origin: ["http://192.168.1.151:3000", "http://192.168.1.151:3001"],
   },
 });
 
@@ -14,24 +14,35 @@ io.use((socket, next) => {
   next();
 });
 
-const dbUsers = [{
-  name: 'reza',
-  id: 13131,
-  type: 2,
-  username: 'h1',
-  password: '1'
-}]
+const dbUsers = [
+  {
+    name: "reza",
+    id: 13131,
+    type: 2,
+    username: "h1",
+    password: "1",
+  },
+];
 
 io.on("connection", (socket) => {
-  const userConected = socket.handshake.auth
+  const userConected = socket.handshake.auth;
   const users = [];
 
-  console.log("io.on connection", socket.username)
+  console.log("io.on connection", socket.username);
 
   //if user is admin veryfy
-  const resAdminFind = dbUsers.find(u => u.username === userConected.username && u.type === userConected.type && u.password === userConected.password)
+  const resAdminFind = dbUsers.find(
+    (u) =>
+      u.username === userConected.username &&
+      u.type === userConected.type &&
+      u.password === userConected.password
+  );
   if (resAdminFind) {
-    console.log("io.on connection", socket.username, userConected.type === 2 ? 'Admin' : 'User')
+    console.log(
+      "io.on connection",
+      socket.username,
+      userConected.type === 2 ? "Admin" : "User"
+    );
 
     // fetch existing users
     for (let [id, socket] of io.of("/").sockets) {
@@ -41,8 +52,9 @@ io.on("connection", (socket) => {
         username: socket.username,
       });
     }
-  } else
-    // fetch existing users
+  }
+  // fetch existing users
+  else
     for (let [id, socket] of io.of("/").sockets) {
       users.push({
         userID: id,
@@ -57,14 +69,11 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("user connected", {
     userID: socket.id,
     username: socket.username,
-    isAdmin:  resAdminFind ? true : false,
+    isAdmin: resAdminFind ? true : false,
   });
 
   // forward the private message to the right recipient
-  socket.on("private message", ({
-    content,
-    to
-  }) => {
+  socket.on("private message", ({ content, to }) => {
     console.log("private message", content, to, socket.id);
     socket.to(to).emit("private message", {
       content,
@@ -75,9 +84,8 @@ io.on("connection", (socket) => {
   // notify users upon disconnection
   socket.on("disconnect", () => {
     socket.broadcast.emit("user disconnected", socket.id);
-    let user = users.find(i => i.userID === socket.id)
+    let user = users.find((i) => i.userID === socket.id);
     console.log("user disconnected", user.username, socket.id);
-
   });
 });
 

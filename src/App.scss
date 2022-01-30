@@ -331,5 +331,15 @@ li a:hover {
   ul{
     margin: 0;
     padding: 0;
+    display: inline-block;
+    padding: 2px;
+    background-color: transparent;
+    text-align: right;
+    li{
+      p:before{
+        margin: 0 5px;
+        content: "\00BB";
+      }
+    }
   }
 }
