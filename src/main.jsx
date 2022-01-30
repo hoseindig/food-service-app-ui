@@ -14,6 +14,7 @@ import http from "./api/httpService";
 import config from "./config.json";
 
 import OrderInfoModal from "./orderInfoModal";
+import UsreState from './component/userState';
 
 import socket from './socket'
 
@@ -120,14 +121,14 @@ class Main extends Component {
         count: 0,
       },
     ],
-    userData:{
-      username:'hs',
-      password:1,
-      name:'hossein',
-      familyName:'sheikhi',
+    userData: {
+      username: 'hs',
+      password: 1,
+      name: 'hossein',
+      familyName: 'sheikhi',
     }
     ,
-    users: [], user: {}, selectedUser: {}, usernameAlreadySelected: false, messages: [] 
+    users: [], user: {}, selectedUser: {}, usernameAlreadySelected: false, messages: []
   };
   addItemToShopList = (item) => {
     let { shopList } = this.state;
@@ -243,8 +244,8 @@ class Main extends Component {
 
   /////////////////////////////////////
   //socket handele
-   //handele socket.on event 
-   componentDidMount() {
+  //handele socket.on event 
+  componentDidMount() {
     console.log('componentDidMount');
 
     this.socketRegisterUserForConnect('internet user')
@@ -313,7 +314,7 @@ class Main extends Component {
       for (let i = 0; i < users.length; i++) {
         const user = users[i];
         if (user.userID === from) {
-          messages.push({ ...user, message:content })
+          messages.push({ ...user, message: content })
           user.messages.push({
             content,
             fromSelf: false,
@@ -367,7 +368,7 @@ class Main extends Component {
     socket.auth = { username, password, type };
     socket.connect();
   }
-/////////////////////////////////////
+  /////////////////////////////////////
   render() {
     // const { socket } = this.props;
     const liked = this.state.products.filter((i) => i.isFavorite);
@@ -398,6 +399,7 @@ class Main extends Component {
           stateOrderText={this.state.stateOrderText}
           userData={this.state.userData}
         />
+        <UsreState users={this.state.users} />
         <Switch>
           <Route
             path="/products"

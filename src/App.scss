@@ -317,3 +317,19 @@ li a:hover {
 .modal {
   z-index: 999999 !important;
 }
+
+.userbox{
+  color: white;
+  width: 220px;
+  height: 150px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: green;
+  border-radius: 15px;
+  padding: 10px;
+  ul{
+    margin: 0;
+    padding: 0;
+  }
+}
