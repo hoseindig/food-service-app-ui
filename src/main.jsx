@@ -187,6 +187,7 @@ class Main extends Component {
     console.log("%chandleGetOrderStateListener", "background:blue", p);
   }
   handleGetOrderListener(p) {
+    debugger
     console.log("%chandleGetOrderListener", "background:blue", p);
 
     let { ordersTracking, stateOrderText } = this.state;
@@ -196,7 +197,8 @@ class Main extends Component {
       if (p.trackNumber === element.id) {
         // debugger;
         let msg = stateOrderText.find((i) => i.id === p.state);
-        toast("   وضعیت سفارش :  " + msg.text);
+        if (msg)
+          toast("   وضعیت سفارش :  " + msg.text);
         ordersTracking[index] = { ...element, state: p.state };
       }
     });
@@ -213,12 +215,13 @@ class Main extends Component {
       // const { socket } = this.props;
       if (socket) {
         //requast
-        socket.emit("getOrderState", data.data.issueTracking);
+
+        const sendObj = { tackingNumber: data.data.issueTracking, to: 'j7EJo-xeB9KT3PJ6AAAF' }
+        socket.emit("getOrderState", sendObj);
         //listen from respond
         socket.on("getOrderState", (res) =>
           this.handleGetOrderStateListener(res)
         );
-        socket.on("orders", (res) => this.handleGetOrderListener(res));
       }
       ////////////////////////////
       ordersTracking.push({
@@ -248,7 +251,7 @@ class Main extends Component {
   componentDidMount() {
     console.log('componentDidMount');
 
-    this.socketRegisterUserForConnect('internet user')
+    // this.socketRegisterUserForConnect('internet user')
 
     socket.on("connect", () => {
       this.state.users.forEach((user) => {
@@ -310,7 +313,7 @@ class Main extends Component {
 
     socket.on("private message", ({ content, from }) => {
       const { users, messages } = this.state
-      debugger
+      alert("private message \n"+content)
       for (let i = 0; i < users.length; i++) {
         const user = users[i];
         if (user.userID === from) {
@@ -328,6 +331,13 @@ class Main extends Component {
       this.setState({ messages, users })
     });
 
+    socket.on("orders", (res) => this.handleGetOrderListener(res));
+    //test socket
+    socket.emit("test", 1);
+    socket.on("test", () => {
+      console.log('socket.emit test');
+    });
+
   }
   //handele socket.off  
   componentWillUnmount() {
@@ -339,17 +349,17 @@ class Main extends Component {
     socket.off("private message");
   }
 
-  onMessage(content) {
+  onMessage(content, userID) {
     // debugger
-    if (this.state.selectedUser.userID) {
+    if (content && userID) {
       socket.emit("private message", {
         content,
-        to: this.state.selectedUser.userID,
+        to: userID,
       });
-      this.state.selectedUser.messages.push({
-        content,
-        fromSelf: true,
-      });
+      // this.state.selectedUser.messages.push({
+      //   content,
+      //   fromSelf: true,
+      // });
     } else alert("select user")
   }
   onSelectUser = (user) => {
@@ -362,7 +372,7 @@ class Main extends Component {
   }
 
   socketRegisterUserForConnect = (username, password, ptype) => {
-    console.log("onUsernameSelection username", username);
+    console.log("socket Register User username", username);
     this.setState({ usernameAlreadySelected: true })
     const type = ptype ? ptype : 1
     socket.auth = { username, password, type };
@@ -398,8 +408,9 @@ class Main extends Component {
           confirmShopList={this.confirmShopList}
           stateOrderText={this.state.stateOrderText}
           userData={this.state.userData}
+          socket={socket}
         />
-        <UsreState users={this.state.users} />
+        <UsreState users={this.state.users} socket={socket} socketRegisterUserForConnect={this.socketRegisterUserForConnect} onMessage={this.onMessage} />
         <Switch>
           <Route
             path="/products"
