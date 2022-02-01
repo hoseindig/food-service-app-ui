@@ -195,7 +195,7 @@ class Main extends Component {
     ordersTracking.forEach((element, index) => {
       console.log(p.trackNumber);
       if (p.trackNumber === element.id) {
-        // debugger;
+        debugger;
         let msg = stateOrderText.find((i) => i.id === p.state);
         if (msg)
           toast("   وضعیت سفارش :  " + msg.text);
@@ -313,7 +313,7 @@ class Main extends Component {
 
     socket.on("private message", ({ content, from }) => {
       const { users, messages } = this.state
-      alert("private message \n"+content)
+      alert("private message \n" + content)
       for (let i = 0; i < users.length; i++) {
         const user = users[i];
         if (user.userID === from) {
@@ -331,7 +331,11 @@ class Main extends Component {
       this.setState({ messages, users })
     });
 
-    socket.on("orders", (res) => this.handleGetOrderListener(res));
+    socket.on("orders", (res) => {
+      debugger
+      console.log("orders", res);
+      this.handleGetOrderListener(res)
+    });///this.handleGetOrderListener(res)
     //test socket
     socket.emit("test", 1);
     socket.on("test", () => {
