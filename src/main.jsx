@@ -26,6 +26,7 @@ class Main extends Component {
       { id: 2, text: " تایید شده" },
       { id: 3, text: " آماده" },
       { id: 4, text: " لغو شده" },
+      { id: 6, text: " ارسال شده" },
     ],
     orderInfoModalShow: false,
     shopList: [],
@@ -335,7 +336,7 @@ class Main extends Component {
       debugger
       console.log("orders", res);
       this.handleGetOrderListener(res)
-    });///this.handleGetOrderListener(res)
+    }); 
     //test socket
     socket.emit("test", 1);
     socket.on("test", () => {

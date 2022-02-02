@@ -33,48 +33,40 @@ io.on("connection", (socket) => {
   const userConected = socket.handshake.auth;
   const users = [];
 
+  function checkUserIsAdmin(user) {
+    let findUser = dbUsers.find(
+      (u) =>
+        u.username === user.username &&
+        u.password &&
+        user.password &&
+        u.type === 2
+    );
+    return findUser ? true : false;
+  }
+
   console.log("io.on connection", socket.username, socket.id);
-
-  //if user is admin veryfy
-
-  //   if (resAdminFind) {
-  //     console.log(
-  //       "io.on connection",
-  //       socket.username,
-  //       userConected.type === 2 ? "Admin" : "User"
-  //     );
-  //   }
   // fetch existing users
   for (let [id, socket] of io.of("/").sockets) {
-    const resAdminFind = dbUsers.find((u) =>u.username === userConected.username &&u.type === userConected.type &&u.password == userConected.password);
-    console.log(userConected.username, (resAdminFind ? "admin" : "user"));
+    console.log("user Conected ", userConected.username);
+    let isAdmin = false;
+    if (socket.handshake.auth.type && socket.handshake.auth.type == 2)
+      isAdmin = checkUserIsAdmin(socket.handshake.auth);
     users.push({
       userID: id,
-      isAdmin: resAdminFind ? true : false,
+      isAdmin,
       username: socket.username,
     });
   }
 
+  // notify  user list
   socket.emit("users", users);
 
   // notify existing users
-  const resAdminFind = dbUsers.find((u) =>u.username === userConected.username &&u.type === userConected.type &&u.password == userConected.password);
   socket.broadcast.emit("user connected", {
     userID: socket.id,
     username: socket.username,
-    isAdmin: resAdminFind ? true : false,
+    // isAdmin: resAdminFind ? true : false,
   });
-
-  function sendMesaageToHimSelf(content, to) {
-    setTimeout(() => {
-      console.log("sendMesaageToHimSelf", content, to);
-
-      socket.emit("private message", {
-        content,
-        from: socket.id,
-      });
-    }, 100);
-  }
 
   // forward the private message to the right recipient
   socket.on("private message", ({ content, to }) => {
@@ -128,14 +120,14 @@ io.on("connection", (socket) => {
     return await myPromise;
   }
 
-  function findAndUpdateOrder(order, to, socket) {
-    const index = orders.findIndex((i) => i.id === order.id);
+  function findAndUpdateOrder(order) {
+    const index = orders.findIndex((i) => i.trackNumber === order.trackNumber);
+    
     if (index !== 1) {
       orders[index] = order;
-      socket.to(to).emit("orders", {
-        orders,
-        from: socket.id,
-      });
+      orders[index].lastChange=getDateTimeNow()
+      socket.to(order.userID).emit("orders", orders[index]);
+      socket.emit("orders",orders[index])
     } else console.log("findAndUpdateOeder not found");
   }
 
@@ -186,12 +178,17 @@ io.on("connection", (socket) => {
           userID: socket.id,
           AdminID: to,
           state: 1,
+          time:getDateTimeNow(),
+          user: {
+            username: socket.username,
+          },
         });
 
-        const admin = users.find((u) => u.isAdmin && u.connected);
+        const admin = users.find((u) => u.isAdmin);
         orders.forEach((order) => {
           console.log("sendOrder userID", order.userID, order);
           socket.emit("orders", order); //.to(order.userID)
+          // socket.to(to).emit("orders", order);
           if (admin) socket.to(admin.userID).emit("orders", order); //if admin online send order//.to(order.userID)
         });
       })
@@ -205,9 +202,10 @@ io.on("connection", (socket) => {
     sendOrder(socket.id);
   });
   //change order state 1)find order 2)update order 3)send to user
-  socket.on("setOrderState", ({ order, to }) => {
-    console.log("setOrderState", order, to, socket.id);
-    findAndUpdateOrder(order, to, socket.id);
+  socket.on("setOrderState", (order) => {
+    findAndUpdateOrder(order);
+    console.log("setOrderState", order,  socket.id);
+
   });
 
   ///////////////////////////////////////
